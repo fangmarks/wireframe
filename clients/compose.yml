@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  sor:
+    container_name: sor
+    image: git.unix.dog/lio/sor
+    networks:
+      - caddy
+    labels:
+      caddy: sor.dog
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+
+networks:
+  caddy:
+    external: true
