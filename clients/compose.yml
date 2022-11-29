@@ -8,6 +8,30 @@ services:
     labels:
       caddy: sor.dog
       caddy.reverse_proxy: "{{upstreams 3000}}"
+  abisu:
+    container_name: abisu
+    image: git.unix.dog/lio/abisu
+    networks:
+      - caddy
+    labels:
+      caddy: abisu.net
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+  alex:
+    container_name: alex
+    image: git.unix.dog/lio/alex
+    networks:
+      - caddy
+    labels:
+      caddy: alx.rip
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+  crook:
+    container_name: crook
+    image: git.unix.dog/lio/crook
+    networks:
+      - caddy
+    labels:
+      caddy: bastard.ink
+      caddy.reverse_proxy: "{{upstreams 3000}}"
 
 networks:
   caddy:
