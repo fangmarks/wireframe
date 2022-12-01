@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  server:
+    container_name: vaultwarden
+    image: "vaultwarden/server:latest"
+    env_file: .env
+    volumes:
+      - "./vw-data/:/data/"
+    networks:
+      - caddy
+    labels:
+      caddy: vault.lio.sysetms
+      caddy.reverse_proxy: "{{upstreams 80}}"
+
+networks:
+  caddy:
+    external: true

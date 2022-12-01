@@ -1,0 +1,54 @@
+version: "3.2"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - local
+    volumes:
+      - db:/var/lib/postresql/data
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+
+  app:
+    image: nextcloud
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    networks:
+      - local
+      - caddy
+    labels:
+      caddy: cloud.musky.cat
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+    depends_on:
+      - db
+
+  cron:
+    image: nextcloud
+    restart: always
+    networks:
+      - local
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+
+volumes:
+  db:
+  nextcloud:
+
+networks:
+  local:
+    driver: custom
+  caddy:
+    external: true

@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+  # Give elixi.re access to the net
+  ubuntu:
+    image: ubuntu
+    container_name: ubuntu
+    networks:
+      - caddy
+    labels:
+      caddy: pogge.rs, lio.wtf, *.lio.wtf, werewolves-yiff.me, *.werewolves-yiff.me, lensfla.re, *.lensfla.re
+      caddy.reverse_proxy: "host.docker.internal:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: sleep infinity
+    # PosgreSQL database
+  postgres:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 5434:5434
+    environment:
+      POSTGRES_PASSWORD: elixire
+      POSTGRES_USER: elixire
+      POSTGRES_DB: elixire
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U elixire -d elixire"]
+      interval: "10s"
+      timeout: "5s"
+      retries: 5
+      start_period: "5s"
+
+  # Redis server
+  redis:
+    image: eqalpha/keydb
+    restart: unless-stopped
+    command: [keydb-server, --save, "60", "1"]
+    ports:
+      - "6379:6379"
+      - "16379:16379"
+    healthcheck:
+      test: ["CMD-SHELL", "keydb-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+      start_period: "5s"
+    volumes:
+      - "redis_data:/data"
+
+networks:
+  caddy:
+    external: true
+
+volumes:
+  pg_data:
+  redis_data:
