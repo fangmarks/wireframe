@@ -8,6 +8,7 @@ services:
     labels:
       caddy: sor.dog
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      com.centurylinklabs.watchtower.enable: true
   abisu:
     container_name: abisu
     image: git.unix.dog/lio/abisu
@@ -16,6 +17,7 @@ services:
     labels:
       caddy: abisu.net
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      com.centurylinklabs.watchtower.enable: true
   alex:
     container_name: alex
     image: git.unix.dog/lio/alex
@@ -24,6 +26,7 @@ services:
     labels:
       caddy: alx.rip
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      com.centurylinklabs.watchtower.enable: true
   crook:
     container_name: crook
     image: git.unix.dog/lio/crook
@@ -32,6 +35,7 @@ services:
     labels:
       caddy: bastard.ink
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      com.centurylinklabs.watchtower.enable: true
 
 networks:
   caddy:

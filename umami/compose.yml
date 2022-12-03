@@ -15,6 +15,7 @@ services:
     labels:
       caddy: umami.lio.systems
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      com.centurylinklabs.watchtower.enable: true
   db:
     image: postgres:12-alpine
     networks:

@@ -23,6 +23,7 @@ services:
     labels:
       caddy: git.lio.cat
       caddy.reverse_proxy: "{{upstreams 3000}}"
+      com.centurylinklabs.watchtower.enable: true
     volumes:
       - ./gitea:/data
       - /etc/timezone:/etc/timezone:ro

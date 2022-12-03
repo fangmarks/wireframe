@@ -24,6 +24,7 @@ services:
     labels:
       caddy: cloud.musky.cat
       caddy.reverse_proxy: "{{upstreams 80}}"
+      com.centurylinklabs.watchtower.enable: true
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_DB=nextcloud

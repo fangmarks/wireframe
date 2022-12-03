@@ -11,6 +11,7 @@ services:
     labels:
       caddy: vault.lio.sysetms
       caddy.reverse_proxy: "{{upstreams 80}}"
+      com.centurylinklabs.watchtower.enable: true
 
 networks:
   caddy:
