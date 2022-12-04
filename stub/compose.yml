@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: stub
       POSTGRES_DB: stub
     volumes:
-      - "pg_data:/var/lib/postgresql/data"
+      - "stub_pg_data:/var/lib/postgresql/data"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U stub -d stub"]
       interval: "10s"
@@ -34,7 +34,7 @@ services:
       retries: 5
       start_period: "5s"
     volumes:
-      - "redis_data:/data"
+      - "stub_redis_data:/data"
 
   # App
   app:
@@ -73,7 +73,7 @@ networks:
     external: true
 
 volumes:
-  pg_data:
+  stub_pg_data:
     external: true
-  redis_data:
+  stub_redis_data:
     external: true
