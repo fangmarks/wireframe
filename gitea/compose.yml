@@ -16,6 +16,8 @@ services:
       - GITEA__database__NAME=gitea
       - GITEA__database__USER=gitea
       - GITEA__database__PASSWD=gitea
+      # - GITEA_CUSTOM=/data
+      - GITEA_WORK_DIR=/data
     restart: always
     networks:
       - gitea
