@@ -9,7 +9,7 @@ services:
     networks:
       - caddy
     labels:
-      caddy: vault.lio.sysetms
+      caddy: vault.lio.systems
       caddy.reverse_proxy: "{{upstreams 80}}"
       com.centurylinklabs.watchtower.enable: true
 
