@@ -15,10 +15,11 @@ services:
       - USER_GID=1000
       - GITEA__database__DB_TYPE=sqlite3
       - GITEA__database__PATH=/data/gitea-db.sql
-      - GITEA_APP_INI=/data/app.ini
+      # - GITEA_APP_INI=/data/app.ini
       # - GITEA_CUSTOM=/data
       - GITEA_WORK_DIR=/data
     restart: always
+    command: "--config /data/app.ini"
     networks:
       - caddy
     labels:
