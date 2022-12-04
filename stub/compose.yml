@@ -74,4 +74,6 @@ networks:
 
 volumes:
   pg_data:
+    external: true
   redis_data:
+    external: true
