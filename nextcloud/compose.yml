@@ -46,6 +46,6 @@ volumes:
 
 networks:
   local:
-    driver: custom
+    name: local
   caddy:
     external: true
