@@ -8,8 +8,11 @@ services:
       - next
     volumes:
       - db:/var/lib/postresql/data
-    env_file:
-      - db.env
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud_db
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=NEXTCLOUD_MUSKY_CAT
 
   app:
     image: nextcloud
@@ -24,8 +27,11 @@ services:
       caddy: cloud.musky.cat
       caddy.reverse_proxy: "{{upstreams 80}}"
       com.centurylinklabs.watchtower.enable: true
-    env_file:
-      - db.env
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud_db
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=NEXTCLOUD_MUSKY_CAT
     depends_on:
       - db
 
