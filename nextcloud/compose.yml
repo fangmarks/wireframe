@@ -2,19 +2,18 @@ version: "3.2"
 
 services:
   db:
-    image: postgres
+    image: postgres:alpine
     restart: always
     networks:
       - local
     volumes:
       - db:/var/lib/postresql/data
-    environment:
-      - POSTGRES_DB=nextcloud
-      - POSTGRES_USER=nextcloud
-      - POSTGRES_PASSWORD=nextcloud
+    env_file:
+      - db.env
 
   app:
     image: nextcloud
+    container_name: nextcloud_app
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -25,11 +24,8 @@ services:
       caddy: cloud.musky.cat
       caddy.reverse_proxy: "{{upstreams 80}}"
       com.centurylinklabs.watchtower.enable: true
-    environment:
-      - POSTGRES_HOST=db
-      - POSTGRES_DB=nextcloud
-      - POSTGRES_USER=nextcloud
-      - POSTGRES_PASSWORD=nextcloud
+    env_file:
+      - db.env
     depends_on:
       - db
 
