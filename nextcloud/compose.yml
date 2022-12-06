@@ -4,12 +4,12 @@ services:
   db:
     image: postgres:alpine
     restart: always
+    hostname: nc-postgres
     networks:
       - next
     volumes:
       - db:/var/lib/postresql/data
     environment:
-      - POSTGRES_HOST=db
       - POSTGRES_DB=nextcloud_db
       - POSTGRES_USER=nextcloud
       - POSTGRES_PASSWORD=NEXTCLOUD_MUSKY_CAT
@@ -28,7 +28,7 @@ services:
       caddy.reverse_proxy: "{{upstreams 80}}"
       com.centurylinklabs.watchtower.enable: true
     environment:
-      - POSTGRES_HOST=db
+      - POSTGRES_HOST=nc-postgres
       - POSTGRES_DB=nextcloud_db
       - POSTGRES_USER=nextcloud
       - POSTGRES_PASSWORD=NEXTCLOUD_MUSKY_CAT
