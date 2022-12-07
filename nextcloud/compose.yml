@@ -32,6 +32,7 @@ services:
       - POSTGRES_DB=nextcloud_db
       - POSTGRES_USER=nextcloud
       - POSTGRES_PASSWORD=NEXTCLOUD_MUSKY_CAT
+      - OVERWRITEPROTOCOL=https
     depends_on:
       - db
 
