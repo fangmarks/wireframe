@@ -1,3 +1,5 @@
+LABEL org.opencontainers.image.source https://github.com/himbolion/wireframe
+
 ARG CADDY_VERSION=2.6.1
 FROM caddy:${CADDY_VERSION}-builder AS builder
 
