@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  server:
+    image: szurubooru/server:latest
+    networks:
+      - booru
+    depends_on:
+      - sql
+    environment:
+      POSTGRES_HOST: sql
+      POSTGRES_USER: szuru
+      POSTGRES_PASSWORD: szuru
+      #POSTGRES_DB: defaults to user
+      #POSTGRES_PORT: 5432
+      THREADS: 4
+    volumes:
+      - data:/data
+      - "./config.yaml:/opt/app/config.yaml"
+
+  client:
+    image: szurubooru/client:latest
+    networks:
+      - caddy
+      - booru
+    depends_on:
+      - server
+    environment:
+      BACKEND_HOST: server
+      BASE_URL: "/"
+    volumes:
+      - data:/data
+    labels:
+      caddy: booru.lio.gallery
+      caddy.reverse_proxy: "{{upstreams 80}}"
+      com.centurylinklabs.watchtower.enable: true
+
+  sql:
+    image: postgres:11-alpine
+    networks:
+      - booru
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: szuru
+      POSTGRES_PASSWORD: szuru
+    volumes:
+      - sql:/var/lib/postgresql/data
+
+
+volumes:
+  sql:
+  data:
+
+networks:
+  booru:
+    name: booru
+  caddy:
+    external: true

@@ -15,8 +15,8 @@ services:
     networks:
       - caddy
     labels:
-      caddy: abisu.net
-      caddy.reverse_proxy: "{{upstreams 3000}}"
+      caddy_1: abisu.net
+      caddy_1.reverse_proxy: "{{upstreams 3000}}"
       com.centurylinklabs.watchtower.enable: true
   alex:
     container_name: alex
@@ -24,8 +24,8 @@ services:
     networks:
       - caddy
     labels:
-      caddy: alx.rip
-      caddy.reverse_proxy: "{{upstreams 3000}}"
+      caddy_2: alx.rip
+      caddy_2.reverse_proxy: "{{upstreams 3000}}"
       com.centurylinklabs.watchtower.enable: true
   crook:
     container_name: crook
@@ -33,8 +33,8 @@ services:
     networks:
       - caddy
     labels:
-      caddy: bastard.ink
-      caddy.reverse_proxy: "{{upstreams 3000}}"
+      caddy_3: bastard.ink
+      caddy_3.reverse_proxy: "{{upstreams 3000}}"
       com.centurylinklabs.watchtower.enable: true
 
 networks:

@@ -24,7 +24,7 @@ services:
       - next
       - caddy
     labels:
-      caddy: cloud.musky.cat
+      caddy: cloud.musky.cat, virtual.implant.cam
       caddy.reverse_proxy: "{{upstreams 80}}"
       com.centurylinklabs.watchtower.enable: true
     environment:
@@ -33,6 +33,7 @@ services:
       - POSTGRES_USER=nextcloud
       - POSTGRES_PASSWORD=NEXTCLOUD_MUSKY_CAT
       - OVERWRITEPROTOCOL=https
+      - NEXTCLOUD_TRUSTED_DOMAINS="cloud.musky.cat virtual.implant.cam"
     depends_on:
       - db
 

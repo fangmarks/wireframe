@@ -4,3 +4,5 @@
 *.zip
 
 vw-data/
+gitea/gitea
+gitea-*
